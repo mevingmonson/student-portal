@@ -1,0 +1,167 @@
+.page {
+  display: block;
+}
+
+.pageContent {
+  display: flex;
+  min-height: 100vh;
+}
+
+.imageContainer {
+  align-items: center;
+  background-image: url("./../../images/students.png");
+  background-position: right;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 47%;
+  margin: 12px;
+
+  &::after {
+    content: " ";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.icon {
+  position: relative;
+  width: 228px;
+  z-index: 2;
+}
+
+.formContainer {
+  align-items: center;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  margin: 15px 45px;
+  width: 45%
+}
+
+.form {
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 16px 0;
+  width: 500px;
+  padding: 84px 36px;
+}
+
+.invalidCredentials {
+  color: red;
+  font-size: 14px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.formSubtitle {
+  color: #888;
+  font-weight: bold;
+  margin: 0 0 6px 0;
+}
+
+.formTitle {
+  font-weight: bold;
+  margin: 0;
+}
+
+.formDescription {
+  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 48px;
+}
+
+.formInputContainer {
+  display: block;
+  margin-top: 24px;
+  position: relative;
+  width: 100%;
+}
+
+.formInputContent {
+  height: 40px;
+  position: relative;
+  width: 100%;
+}
+
+.formInputLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.formInputIconContainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  left: 0;
+  padding: 0 0 0 12px;
+  position: absolute;
+  top: 0;
+  width: auto;
+  z-index: 3;
+}
+
+.formInputIcon {
+  color: #888;
+  font-size: 18px !important;
+}
+
+.formInputField {
+  background-color: transparent;
+  border: 1px solid #aaa;
+  border-radius: 24px;
+  box-shadow: 0;
+  font-size: 14px;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  outline: none !important;
+  padding: 0 16px 0 36px;
+  position: absolute;
+  top: 0;
+  width: 89%;
+  z-index: 2;
+
+  &:focus {
+    border-color: rgb(0, 182, 0);
+  }
+}
+
+.formSubmitButton {
+  appearance: none;
+  background-color: #1c57ad;
+  border: none;
+  border-radius: 32px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 32px;
+  padding: 12px;
+  width: 100%;
+}
+
+.resetLink {
+  color: #888;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-top: 12px;
+
+  div {
+    margin-right: 12px;
+  }
+
+  a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+  }
+}

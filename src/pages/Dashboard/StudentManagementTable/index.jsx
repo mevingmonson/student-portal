@@ -2,8 +2,12 @@ import React from "react";
 // import { cloneDeep, findIndex, startCase } from "lodash";
 import PropTypes from "prop-types";
 
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
 // import userServices from "../../../api/userServices";
 import "./style.scss";
+import { cloneDeep, findIndex } from "lodash";
 // import TableSkeleton from "../../../components/Skeletons/TableSkeleton";
 // import showAlert from "../../../utils/showAlert";
 // import helper from "../../../utils/helper";
@@ -17,73 +21,47 @@ function StudentManagementTable({
   popUpData,
   setPopUpData,
 }) {
-
-  tableData=[
-    
-  ]
   // const { getRoleLabel } = helper;
 
-  // const editHandler = (item) => {
-  //   const popUpDataCopy = cloneDeep(popUpData);
-  //   popUpDataCopy.isShowPopUp = true;
-  //   popUpDataCopy.isEditMode = true;
-  //   popUpDataCopy.data = item;
-  //   setPopUpData(popUpDataCopy);
-  // };
+  const editHandler = (item) => () => {
+    const popUpDataCopy = cloneDeep(popUpData);
+    popUpDataCopy.isShowPopUp = true;
+    popUpDataCopy.isEditMode = true;
+    popUpDataCopy.data = { ...item };
+    setPopUpData(popUpDataCopy);
+  };
 
- 
+  const deleteHandler = (item) => () => {
+    const index = findIndex(tableData, ["id", item.id]);
+    const tableDataCopy = cloneDeep(tableData);
+    tableDataCopy.splice(index, 1);
+    debugger;
+    setTableData(tableDataCopy);
+  };
 
- 
   const tableSkeletonSection = () => (
     <>
-      {new Array(7).fill("").map((el, index) => (
-        "loading"
+      {new Array(7).fill("").map(
+        (el, index) => "loading"
         // <TableSkeleton index={index} />
-      ))}
+      )}
     </>
   );
 
-  const tableAccessColumn = (item) => {
-    if (item.last_login === 0 && item.active === false)
-      return <p className="red-col">Pending Verification</p>;
-    return <p className="blue-col">{item.type_of_user}</p>;
-  };
-
   const tableActionColumn = (item) => {
-    if (item.last_login === 0 && item.active === false)
-      return (
-        <div className="table-action___single"> 
-          <button type="button" onClick={()=>{alert("1")} }>
-            <img src="/assets/reload.svg" alt="reload" />
-            Resend Email
-          </button>  
-        </div>
-      );
     // means deactivated and new user
     return (
       <>
         <div className="table-action___single">
-          <button type="button" >
-            <img src="/assets/edit.svg" alt="edit" />
+          <button type="button" onClick={editHandler(item)}>
+            <EditOutlinedIcon />
             Edit
           </button>
         </div>
         <div className="table-action___single">
-          <button type="button">
-            <img src="/assets/reset-pwd.svg" alt="reset-password" />
-            Reset Password
-          </button>
-        </div>
-        <div className="table-action___single" style={{ display: "none" }}>
-          <button type="button">
-            <img src="/assets/download.svg" alt="download" />
-            Logs
-          </button>
-        </div>
-        <div className="table-action___single">
-          <button type="button">
-            <img src="/assets/padlock.svg" alt="status-change" />
-            {item.active === true ? "Deactivate" : <>Activate&ensp;&ensp;</>}
+          <button type="button" onClick={deleteHandler(item)}>
+            <DeleteOutlineOutlinedIcon />
+            Delete
           </button>
         </div>
       </>
@@ -95,21 +73,15 @@ function StudentManagementTable({
       {tableData.map((item) => (
         <div className="table-row">
           <div className="table-col profile-col">
-            <div className="profile-pic">
-              <img
-                src={`${
-                  item.profile_pic ? item.profile_pic : "/assets/avatar.png"
-                }`}
-                alt="avatar"
-              />
-            </div>
-            <p>{"Mevin G Monson"}</p>
+            <p>{item.id}</p>
           </div>
           <div className="table-col email-col">
             <p>{item.email}</p>
           </div>
-          <div className="table-col access-col">{"25"}</div>
-          <div className="table-col action-col">Test</div>
+          <div className="table-col course-col">
+            <p>{item.course}</p>
+          </div>
+          <div className="table-col action-col">{tableActionColumn(item)}</div>
         </div>
       ))}
       {/* if there are no records  */}

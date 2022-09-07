@@ -12,7 +12,7 @@ function AddButton({ onClickHandle }) {
     <div className="btn-wrapper">
       <button type="button" onClick={onClickHandler}>
         {" "}
-        <AddCircleOutlineOutlinedIcon /> Add New
+        <AddCircleOutlineOutlinedIcon /> Enrol
       </button>
     </div>
   );

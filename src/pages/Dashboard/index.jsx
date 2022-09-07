@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cloneDeep } from "lodash";
 
-
 import "./style.scss";
 import AdminHeader from "../../components/AdminHeader";
-import SearchInput from './../../components/SearchInput/index';
-import AddButton from './../../components/AddButton/index';
-import StudentManagementTable from './StudentManagementTable/index';
-import StudentManagementPopup from './StudentManagementPopup/index';
-
+import SearchInput from "./../../components/SearchInput/index";
+import AddButton from "./../../components/AddButton/index";
+import StudentManagementTable from "./StudentManagementTable/index";
+import StudentManagementPopup from "./StudentManagementPopup/index";
 
 function Dashboard() {
   const findRef = useRef(null);
@@ -18,19 +16,20 @@ function Dashboard() {
     isEditMode: false,
     data: {},
   });
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState([
+    {
+      id: 10001,
+      email: "mike@gmail.com",
+      course: "Computer Science",
+    },
+    {
+      id: 10002,
+      email: "tracy@gmail.com",
+      course: "Commerce",
+    },
+  ]);
   const [filter, setFilter] = useState({
-    currentPage: 1,
     searchKey: "",
-  });
-  const [navigation, setNavigation] = useState({
-    itemCount: undefined,
-    totalCount: undefined,
-    nextPageNum: undefined,
-    prevPageNum: undefined,
-    hasNextPage: undefined,
-    hasPrevPage: undefined,
-    dataPerPage: undefined,
   });
 
   const addButtonHandle = () => {
@@ -40,12 +39,6 @@ function Dashboard() {
     popUpDataCopy.data = {};
     setPopUpData(popUpDataCopy);
   };
-
-
-
- 
-
-
 
   const onChangeHandler = (key) => (value) => {
     const filterCopy = cloneDeep(filter);
@@ -64,12 +57,9 @@ function Dashboard() {
     setPopUpData(popUpDataCopy);
   };
 
-  const gerUserListDetails=[]
-
-
   return (
     <>
-      <AdminHeader/>
+      <AdminHeader />
       <div className="container usermanagment">
         <div className="page-header">
           <div className="page-header___right">
@@ -98,13 +88,13 @@ function Dashboard() {
           setTableData={setTableData}
           popUpData={popUpData}
           setPopUpData={setPopUpData}
-          gerUserListDetails={gerUserListDetails}
         />
         {popUpData.isShowPopUp && (
           <StudentManagementPopup
             setLoader={setLoader}
             popUpData={popUpData}
-            gerUserListDetails={gerUserListDetails}
+            tableData={tableData}
+            setTableData={setTableData}
             closePopup={closePopup}
           />
         )}

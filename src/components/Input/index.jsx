@@ -10,6 +10,7 @@ function Input({
   required,
   minLength,
   maxLength,
+  disabled = false,
 }) {
   const onChangeHandle = (e) => {
     onChange(e.target.value);
@@ -26,6 +27,7 @@ function Input({
         value={value}
         minLength={minLength}
         maxLength={maxLength}
+        disabled={disabled}
       />
     </div>
   );

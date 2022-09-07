@@ -1,5 +1,6 @@
 import "./App.css";
 import RouteList from "./pages/Routes";
+import "./global.styles.scss";
 
 function App() {
   return (

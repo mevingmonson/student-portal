@@ -1,0 +1,24 @@
+.usermanagment .table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 250px 360px;
+
+  p {
+    &:nth-child(4) {
+      text-align: center;
+      padding-right: 40px;
+    }
+  }
+}
+
+.usermanagment .table-row {
+  grid-template-columns: 1fr 1fr 250px 360px;
+
+  .blue-col {
+    background-color: rgba(3, 122, 189, 0.06);
+    color: #037abd;
+  }
+  .red-col {
+    background-color: rgba(189, 3, 3, 0.06);
+    color: #bd0303;
+  }
+}

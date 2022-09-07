@@ -129,6 +129,6 @@ export default function Login({ history }) {
   );
 }
 
-Login.propTypes = {
-  history: PropTypes.instanceOf(Object).isRequired,
-};
+// Login.propTypes = {
+//   history: PropTypes.instanceOf(Object).isRequired,
+// };

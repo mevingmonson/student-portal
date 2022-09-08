@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { cloneDeep } from "lodash";
+import { cloneDeep, findIndex } from "lodash";
 
 import "./style.scss";
 import AdminHeader from "../../components/AdminHeader";
@@ -16,6 +16,7 @@ function Dashboard() {
     isEditMode: false,
     data: {},
   });
+
   const [tableData, setTableData] = useState([
     {
       id: 10001,
@@ -28,9 +29,9 @@ function Dashboard() {
       course: "Commerce",
     },
   ]);
-  const [filter, setFilter] = useState({
-    searchKey: "",
-  });
+
+  const [filterData, setFilterData] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
 
   const addButtonHandle = () => {
     const popUpDataCopy = cloneDeep(popUpData);
@@ -40,13 +41,11 @@ function Dashboard() {
     setPopUpData(popUpDataCopy);
   };
 
-  const onChangeHandler = (key) => (value) => {
-    const filterCopy = cloneDeep(filter);
-    if (key === "searchKey") {
-      filterCopy.searchKey = value;
-      filterCopy.currentPage = 1;
-      setFilter(filterCopy);
-    }
+  const onChangeHandler = (value) => {
+    setSearchKey(value);
+
+    const filterDataCopy = tableData.filter((el) => el.email.includes(value));
+    setFilterData(filterDataCopy);
   };
 
   const closePopup = () => {
@@ -57,6 +56,21 @@ function Dashboard() {
     setPopUpData(popUpDataCopy);
   };
 
+  const editHandler = (item) => () => {
+    const popUpDataCopy = cloneDeep(popUpData);
+    popUpDataCopy.isShowPopUp = true;
+    popUpDataCopy.isEditMode = true;
+    popUpDataCopy.data = { ...item };
+    setPopUpData(popUpDataCopy);
+  };
+
+  const deleteHandler = (item) => () => {
+    const index = findIndex(tableData, ["id", item.id]);
+    const tableDataCopy = cloneDeep(tableData);
+    tableDataCopy.splice(index, 1);
+    setTableData(tableDataCopy);
+  };
+
   return (
     <>
       <AdminHeader />
@@ -64,10 +78,10 @@ function Dashboard() {
         <div className="page-header">
           <div className="page-header___right">
             <SearchInput
-              onChange={onChangeHandler("searchKey")}
-              value={filter.searchKey}
+              onChange={onChangeHandler}
+              value={searchKey}
               inputRef={findRef}
-              placeholder="Search for accounts, emails ..."
+              placeholder="Search for emails"
             />
             <AddButton onClickHandle={addButtonHandle} />
           </div>
@@ -84,10 +98,11 @@ function Dashboard() {
         <StudentManagementTable
           loader={loader}
           setLoader={setLoader}
-          tableData={tableData}
-          setTableData={setTableData}
+          tableData={searchKey ? filterData : tableData}
           popUpData={popUpData}
           setPopUpData={setPopUpData}
+          editHandler={editHandler}
+          deleteHandler={deleteHandler}
         />
         {popUpData.isShowPopUp && (
           <StudentManagementPopup

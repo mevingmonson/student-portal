@@ -17,27 +17,12 @@ function StudentManagementTable({
   loader,
   setLoader,
   tableData,
-  setTableData,
+  editHandler,
+  deleteHandler,
   popUpData,
   setPopUpData,
 }) {
   // const { getRoleLabel } = helper;
-
-  const editHandler = (item) => () => {
-    const popUpDataCopy = cloneDeep(popUpData);
-    popUpDataCopy.isShowPopUp = true;
-    popUpDataCopy.isEditMode = true;
-    popUpDataCopy.data = { ...item };
-    setPopUpData(popUpDataCopy);
-  };
-
-  const deleteHandler = (item) => () => {
-    const index = findIndex(tableData, ["id", item.id]);
-    const tableDataCopy = cloneDeep(tableData);
-    tableDataCopy.splice(index, 1);
-    debugger;
-    setTableData(tableDataCopy);
-  };
 
   const tableSkeletonSection = () => (
     <>

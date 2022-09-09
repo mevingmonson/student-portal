@@ -7,6 +7,7 @@ import SearchInput from "./../../components/SearchInput/index";
 import AddButton from "./../../components/AddButton/index";
 import StudentManagementTable from "./StudentManagementTable/index";
 import StudentManagementPopup from "./StudentManagementPopup/index";
+import showAlert from "../../utils/showAlert";
 
 function Dashboard() {
   const findRef = useRef(null);
@@ -69,6 +70,7 @@ function Dashboard() {
     const tableDataCopy = cloneDeep(tableData);
     tableDataCopy.splice(index, 1);
     setTableData(tableDataCopy);
+    showAlert("Deleted successfully!", "success");
   };
 
   return (

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Input from "./../../../components/Input/index";
 import SelectBox from "./../../../components/SelectBox/index";
 import { cloneDeep, findIndex } from "lodash";
+import showAlert from "../../../utils/showAlert";
 
 function StudentManagementPopup({
   setLoader,
@@ -43,11 +44,13 @@ function StudentManagementPopup({
       tableDataCopy[index] = formDetails;
       setTableData(tableDataCopy);
       closePopup();
+      showAlert("Updated successfully!", "success");
     } else {
       const tableDataCopy = cloneDeep(tableData);
       tableDataCopy.push(formDetails);
       setTableData(tableDataCopy);
       closePopup();
+      showAlert("New student enrolled", "success");
     }
   };
 

@@ -5,6 +5,7 @@ import Input from "./../../../components/Input/index";
 import SelectBox from "./../../../components/SelectBox/index";
 import { cloneDeep, findIndex } from "lodash";
 import showAlert from "../../../utils/showAlert";
+import appServices from "../../../api/appServices";
 
 function StudentManagementPopup({
   setLoader,
@@ -34,6 +35,22 @@ function StudentManagementPopup({
     const formDetailsCopy = cloneDeep(formDetails);
     formDetailsCopy[key] = value;
     setFormDetails(formDetailsCopy);
+  };
+
+  const addStudent = async () => {
+    try {
+      const response = await appServices.addStudent(formDetails);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const editStudent = async () => {
+    try {
+      const response = await appServices.updateStudent(formDetails);
+    } catch (error) {
+      return error;
+    }
   };
 
   const submitHandler = (event) => {

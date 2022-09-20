@@ -8,6 +8,7 @@ import AddButton from "./../../components/AddButton/index";
 import StudentManagementTable from "./StudentManagementTable/index";
 import StudentManagementPopup from "./StudentManagementPopup/index";
 import showAlert from "../../utils/showAlert";
+import appServices from "../../api/appServices";
 
 function Dashboard() {
   const findRef = useRef(null);
@@ -33,6 +34,19 @@ function Dashboard() {
 
   const [filterData, setFilterData] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+
+  useEffect(() => {
+    getStudentList();
+  }, []);
+
+  const getStudentList = async () => {
+    try {
+      const response = await appServices.getStudentsList();
+      console.log("response===", response.data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
 
   const addButtonHandle = () => {
     const popUpDataCopy = cloneDeep(popUpData);
@@ -71,6 +85,12 @@ function Dashboard() {
     tableDataCopy.splice(index, 1);
     setTableData(tableDataCopy);
     showAlert("Deleted successfully!", "success");
+  };
+
+  const deleteStudent = async (id) => {
+    try {
+      const response = await appServices.deleteStudent(id);
+    } catch (error) {}
   };
 
   return (

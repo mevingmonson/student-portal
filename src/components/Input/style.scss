@@ -1,0 +1,25 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    color: #b0bac9;
+    font-size: 11px;
+    letter-spacing: 1.13px;
+    text-transform: uppercase;
+  }
+
+  input {
+    border-radius: 5px;
+    border: 1px solid #e0e7ff;
+    background-color: rgba(224, 231, 255, 0.2);
+    height: 39px;
+    margin-top: 6px;
+    font-size: 15px;
+    padding: 0 10px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

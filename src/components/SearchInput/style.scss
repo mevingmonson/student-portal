@@ -1,0 +1,42 @@
+.search-wrapper {
+  position: relative;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  width: 350px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+
+  img {
+    width: 16px;
+    margin-right: 10px;
+  }
+
+  input {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    width: 16rem;
+
+    &:focus,
+    &:hover {
+      outline: none;
+    }
+  }
+}
+
+.cancel-icon {
+  display: flex;
+  color: #aaa;
+  font-size: 18px !important;
+  cursor: pointer;
+}
+
+.cancel-icon :hover {
+  color: #888;
+}

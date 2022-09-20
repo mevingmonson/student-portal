@@ -1,0 +1,20 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  align-items: flex-end;
+
+  .search-wrapper {
+    margin-right: 20px;
+  }
+}
+
+.page-header___right {
+  display: flex;
+}
+
+.container {
+  max-width: 1400px;
+  padding: 0 20px 32px;
+  margin: 0 auto;
+}

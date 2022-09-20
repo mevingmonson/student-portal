@@ -1,0 +1,31 @@
+$themeColor: #2f588e;
+
+.btn-wrapper {
+  height: 42px;
+  border-radius: 17px;
+  background-color: #1c57ad;
+  display: inline-block;
+
+  button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 15px;
+    padding: 9px;
+    padding-right: 20px;
+    padding-left: 15px;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      cursor: pointer;
+    }
+  }
+
+  img {
+    width: 20px;
+    margin-right: 10px;
+  }
+}

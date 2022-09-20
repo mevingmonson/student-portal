@@ -1,15 +1,19 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Switch, Route } from "react-router-dom";
+
 import Login from "./Login";
 import Student from "./Student";
+import Dashboard from "./Dashboard";
 
 const RouteList = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          {/* <Switch> */}
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Student />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* </Switch> */}
         </Routes>
       </BrowserRouter>
     </>

@@ -21,14 +21,9 @@ function Dashboard() {
 
   const [tableData, setTableData] = useState([
     {
-      id: 10001,
-      email: "mike@gmail.com",
-      course: "Computer Science",
-    },
-    {
-      id: 10002,
-      email: "tracy@gmail.com",
-      course: "Commerce",
+      _id: 1,
+      firstname: "",
+      lastname: "",
     },
   ]);
 
@@ -41,10 +36,14 @@ function Dashboard() {
 
   const getStudentList = async () => {
     try {
+      setLoader(true);
       const response = await appServices.getStudentsList();
-      console.log("response===", response.data);
+      setLoader(false);
+      setTableData(response || []);
+      console.log("response===", response);
     } catch (error) {
-      return Promise.reject(error);
+      setLoader(false);
+      console.log(error);
     }
   };
 
@@ -59,7 +58,10 @@ function Dashboard() {
   const onChangeHandler = (value) => {
     setSearchKey(value);
 
-    const filterDataCopy = tableData.filter((el) => el.email.includes(value));
+    const filterDataCopy = tableData.filter((el) => {
+      if (el.firstname.includes(value) || el.lastname.includes(value))
+        return el;
+    });
     setFilterData(filterDataCopy);
   };
 
@@ -80,17 +82,18 @@ function Dashboard() {
   };
 
   const deleteHandler = (item) => () => {
-    const index = findIndex(tableData, ["id", item.id]);
-    const tableDataCopy = cloneDeep(tableData);
-    tableDataCopy.splice(index, 1);
-    setTableData(tableDataCopy);
-    showAlert("Deleted successfully!", "success");
+    deleteStudent(item._id);
   };
 
   const deleteStudent = async (id) => {
     try {
+      setLoader(true);
       const response = await appServices.deleteStudent(id);
-    } catch (error) {}
+      getStudentList();
+      showAlert("Deleted successfully!", "success");
+    } catch (error) {
+      setLoader(false);
+    }
   };
 
   return (
@@ -133,6 +136,7 @@ function Dashboard() {
             tableData={tableData}
             setTableData={setTableData}
             closePopup={closePopup}
+            getStudentList={getStudentList}
           />
         )}
       </div>

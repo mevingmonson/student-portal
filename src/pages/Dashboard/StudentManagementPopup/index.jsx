@@ -13,20 +13,19 @@ function StudentManagementPopup({
   tableData,
   setTableData,
   closePopup,
+  getStudentList,
 }) {
   const [formDetails, setFormDetails] = useState({
-    email: "",
-    id: "",
-    course: "",
+    firstname: "",
+    // id: "",
+    lastname: "",
   });
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (popUpData.isEditMode) {
-      const formDetailsCopy = cloneDeep(formDetails);
-      formDetailsCopy.email = popUpData.data.email;
-      formDetailsCopy.id = popUpData.data.id;
-      formDetailsCopy.course = popUpData.data.course;
+      let formDetailsCopy = cloneDeep(formDetails);
+      formDetailsCopy = popUpData.data;
       setFormDetails(formDetailsCopy);
     }
   }, []);
@@ -39,16 +38,27 @@ function StudentManagementPopup({
 
   const addStudent = async () => {
     try {
+      setLoading(true);
       const response = await appServices.addStudent(formDetails);
+      getStudentList();
+      closePopup();
+      showAlert("New student enrolled", "success");
     } catch (error) {
+      setLoading(false);
       return error;
     }
   };
 
   const editStudent = async () => {
     try {
+      setLoading(true);
       const response = await appServices.updateStudent(formDetails);
+      getStudentList();
+      closePopup();
+      showAlert("Updated successfully!", "success");
     } catch (error) {
+      setLoading(false);
+
       return error;
     }
   };
@@ -56,18 +66,9 @@ function StudentManagementPopup({
   const submitHandler = (event) => {
     event.preventDefault();
     if (popUpData.isEditMode) {
-      const index = findIndex(tableData, ["id", formDetails.id]);
-      const tableDataCopy = cloneDeep(tableData);
-      tableDataCopy[index] = formDetails;
-      setTableData(tableDataCopy);
-      closePopup();
-      showAlert("Updated successfully!", "success");
+      editStudent();
     } else {
-      const tableDataCopy = cloneDeep(tableData);
-      tableDataCopy.push(formDetails);
-      setTableData(tableDataCopy);
-      closePopup();
-      showAlert("New student enrolled", "success");
+      addStudent();
     }
   };
 
@@ -86,26 +87,26 @@ function StudentManagementPopup({
         <form onSubmit={submitHandler}>
           <div className="popup-body">
             <div className="popup-row">
-              <Input
+              {/* <Input
                 required="required"
                 placeholder="ID"
                 onChange={onChangeHandler("id")}
                 value={formDetails.id}
                 disabled={popUpData.isEditMode}
-              />
+              /> */}
               <Input
                 maxLength={60}
                 required="required"
-                type="email"
-                placeholder="Email address"
-                onChange={onChangeHandler("email")}
-                value={formDetails.email}
+                type="string"
+                placeholder="First Name"
+                onChange={onChangeHandler("firstname")}
+                value={formDetails.firstname}
               />
               <Input
                 required="required"
-                placeholder="Course"
-                onChange={onChangeHandler("course")}
-                value={formDetails.course}
+                placeholder="Last Name"
+                onChange={onChangeHandler("lastname")}
+                value={formDetails.lastname}
               />
             </div>
             <div className="user-popup-footer">
@@ -113,8 +114,10 @@ function StudentManagementPopup({
                 Cancel
               </button>
               <button type="submit" className="save-btn">
-                {(popUpData.isEditMode && "Save Changes") ||
-                  "Enrol New Student"}
+                {isLoading
+                  ? "Saving..."
+                  : (popUpData.isEditMode && "Save Changes") ||
+                    "Enrol New Student"}
               </button>
             </div>
           </div>

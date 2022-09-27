@@ -1,6 +1,7 @@
 .usermanagment .table-header {
   display: grid;
   grid-template-columns: 1fr 1fr 250px 360px;
+  gap: 8px;
 
   p {
     &:nth-child(4) {

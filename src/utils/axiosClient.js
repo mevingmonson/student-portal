@@ -5,21 +5,13 @@ import endpoints from "../api/endpoints";
 
 // axios.defaults.baseURL = "https://api.example.com"; // api base url
 // axios.defaults.baseURL = "20.244.22.67:12345/"; // api base url
+axios.defaults.baseURL = "http://20.244.22.67:12345"; // api base url
 
 axios.interceptors.request.use(
   (config) => {
-    const newConfig = config;
+    // const newConfig = config;
     // newConfig.headers["Access-Token"] = Cookies.get("AccessToken") || "";
-    newConfig.proxy = {
-      protocol: "https",
-      host: "20.244.22.67",
-      port: 12345,
-    };
-    // newConfig.httpAgent = { keepAlive: true };
-
-    newConfig.baseURL = "20.244.22.67:12345/";
-    // newConfig.httpAgent=""
-    return newConfig;
+    return config;
   },
   (error) => Promise.reject(error)
 );

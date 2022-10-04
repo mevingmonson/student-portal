@@ -55,37 +55,37 @@ function StudentManagementTable({
 
   const tableDataSection = () => (
     <>
-      {tableData.map((item) => (
+      {tableData.map((item, index) => (
         <div className="table-row">
           <div className="table-col profile-col">
-            <p>{item.id}</p>
+            <p>{index + 1}</p>
           </div>
           <div className="table-col email-col">
-            <p>{item.email}</p>
+            <p>{item.firstname}</p>
           </div>
           <div className="table-col course-col">
-            <p>{item.course}</p>
+            <p>{item.lastname}</p>
           </div>
           <div className="table-col action-col">{tableActionColumn(item)}</div>
         </div>
       ))}
       {/* if there are no records  */}
-      {/* {tableData.length === 0 && (
+      {tableData.length === 0 && (
         <div className="table-row table-row-no-data">No Record Found!</div>
-      )} */}
+      )}
     </>
   );
 
   return (
     <div className="table">
       <div className="table-header">
-        <p>ID</p>
-        <p>Email</p>
-        <p>Course</p>
+        <p>No</p>
+        <p>First Name</p>
+        <p>Last Name</p>
         <p>Actions</p>
       </div>
       <div className="table-body">
-        {false ? tableSkeletonSection() : tableDataSection()}
+        {loader ? <p className="loading">Loading...</p> : tableDataSection()}
       </div>
     </div>
   );

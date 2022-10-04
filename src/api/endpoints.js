@@ -4,6 +4,7 @@ const endpoints = {
   studentsList: "students",
   student: "student",
   studentDelete: "student/delete",
+  studentUpdate: "student/update",
 };
 
 export default endpoints;

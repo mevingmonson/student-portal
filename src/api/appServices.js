@@ -3,7 +3,7 @@ import endpoints from "./endpoints";
 
 const { get, post, delete: deleteAxios, put } = axios;
 
-const { studentsList, student, studentDelete } = endpoints;
+const { studentsList, student, studentDelete, studentUpdate } = endpoints;
 
 const getStudentsList = async () => {
   try {
@@ -43,7 +43,7 @@ const deleteStudent = async (id) => {
 
 const updateStudent = async (payload) => {
   try {
-    const response = await put(student, payload);
+    const response = await put(studentUpdate, payload);
     return response.data;
   } catch (error) {
     return error;

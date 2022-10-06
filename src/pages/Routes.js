@@ -12,7 +12,7 @@ const RouteList = () => {
         <Routes>
           {/* <Switch> */}
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
           {/* </Switch> */}
         </Routes>
       </BrowserRouter>

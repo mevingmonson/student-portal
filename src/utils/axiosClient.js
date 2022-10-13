@@ -3,9 +3,8 @@ import axios from "axios";
 import showAlert from "./showAlert";
 import endpoints from "../api/endpoints";
 
-// axios.defaults.baseURL = "https://api.example.com"; // api base url
-// axios.defaults.baseURL = "20.244.22.67:12345/"; // api base url
-axios.defaults.baseURL = "http://20.244.22.67:12345"; // api base url
+// axios.defaults.baseURL = "http://20.244.22.67:12345"; // api base url
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   (config) => {

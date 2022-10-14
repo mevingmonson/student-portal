@@ -4,7 +4,7 @@ import showAlert from "./showAlert";
 import endpoints from "../api/endpoints";
 
 // axios.defaults.baseURL = "http://20.244.22.67:12345"; // api base url
-axios.defaults.baseURL = "http://4.240.84.142:12345";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   (config) => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -8,22 +8,21 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Input from "@mui/material/Input";
 import { isEmpty } from "lodash";
+import useCurrency from "../../custom/useCurrency";
+import {debounce} from 'lodash';
 
-const EXCHANGE_RATES = gql`
-  query GetExchangeRates {
-    rates(currency: "AUD") {
-      currency
-      rate
-      name
-    }
-  }
-`;
 const AzureTest = () => {
   const [list, setList] = useState([]);
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("AUD");
+  const currencyOptions = ["AUD", "USD", "INR", "AED"]
 
-  const { data, loading, error } = useQuery(EXCHANGE_RATES);
+  const [exchangeRate] = useCurrency(currency);
+  const { data, loading, error } = useQuery(exchangeRate);
 
+
+  const handleChange = (e) => {
+    setCurrency(e.target.value);
+  }
   useEffect(() => {
     getAzureApi();
   }, []);
@@ -83,7 +82,15 @@ const AzureTest = () => {
 
       <br></br>
       <h3>GraphQL API Testing</h3>
-      <Input color="primary" placeholder="Currency" value={"USD"} />
+      <select value={currency} onChange={handleChange} >
+      {
+        currencyOptions.map((item, index) => {
+          return (
+            <option key={index} value={item}>{item}</option>
+          )
+        })
+      }
+      </select>
       <br></br>
 
       {console.log("data---------", data)}

@@ -29,7 +29,7 @@
   "scripts": {
     "start": "env-cmd -f .env.develop react-scripts start",
     "build:develop": "env-cmd -f .env.develop react-scripts build",
-    "build": "env-cmd -f .env.production CI=false react-scripts build",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

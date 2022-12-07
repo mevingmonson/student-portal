@@ -48,13 +48,7 @@ function FileInput({ imageUrl, onChange }) {
       const data = new FormData();
 
       data.append("photo", imageFile[0]);
-
-      // console.log("form---", data);
-      appServices.uploadPicture(data).then((response) => {
-        setImagePath(response.photo);
-        onChange(response.photo, response.image_name);
-        setLoader(false);
-      });
+      onChange(imageFile[0]);
     } else {
       // show error
       showAlert(`File size must not exceed ${sizeLimit} mb!`, "error");
@@ -76,11 +70,15 @@ function FileInput({ imageUrl, onChange }) {
               }}
               style={{ display: "none" }}
             />
-            {imagePath !== "/assets/camera.svg" && !loader ? (
-              <img className="img-uploaded" src={imagePath} alt="profile-pic" />
-            ) : (
-              <LoaderSection loader={loader} imagePath={imagePath} />
-            )}
+            <img
+              className="img-uploaded"
+              src={
+                imagePath === "/assets/camera.svg"
+                  ? imagePath
+                  : URL.createObjectURL(imagePath)
+              }
+              alt="profile-pic"
+            />
           </div>
         </label>
       </div>

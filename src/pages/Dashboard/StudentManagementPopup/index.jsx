@@ -6,6 +6,7 @@ import SelectBox from "./../../../components/SelectBox/index";
 import { cloneDeep, findIndex } from "lodash";
 import showAlert from "../../../utils/showAlert";
 import appServices from "../../../api/appServices";
+import FileInput from "../../../components/FileInput";
 
 function StudentManagementPopup({
   setLoader,
@@ -19,6 +20,7 @@ function StudentManagementPopup({
     firstname: "",
     // id: "",
     lastname: "",
+    photo: "",
   });
   const [isLoading, setLoading] = useState(false);
 
@@ -107,6 +109,10 @@ function StudentManagementPopup({
                 placeholder="Last Name"
                 onChange={onChangeHandler("lastname")}
                 value={formDetails.lastname}
+              />
+              <FileInput
+                onChange={onChangeHandler("photo")}
+                imageUrl={formDetails.photo}
               />
             </div>
             <div className="user-popup-footer">

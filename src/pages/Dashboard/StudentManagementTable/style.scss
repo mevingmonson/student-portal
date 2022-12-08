@@ -1,6 +1,6 @@
 .usermanagment .table-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 250px 360px;
+  grid-template-columns: 20px 100px 220px 220px 1fr;
   gap: 8px;
 
   p {
@@ -12,7 +12,7 @@
 }
 
 .usermanagment .table-row {
-  grid-template-columns: 1fr 1fr 250px 360px;
+  grid-template-columns: 20px 100px 220px 220px 1fr;
 
   .blue-col {
     background-color: rgba(3, 122, 189, 0.06);

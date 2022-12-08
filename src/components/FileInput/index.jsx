@@ -70,15 +70,15 @@ function FileInput({ imageUrl, onChange }) {
               }}
               style={{ display: "none" }}
             />
-            <img
-              className="img-uploaded"
-              src={
-                imagePath === "/assets/camera.svg"
-                  ? imagePath
-                  : URL.createObjectURL(imagePath)
-              }
-              alt="profile-pic"
-            />
+            {imagePath === "/assets/camera.svg" ? (
+              <img src="/assets/camera.svg" alt="profile-pic" />
+            ) : (
+              <img
+                className="img-uploaded"
+                src={URL.createObjectURL(imagePath)}
+                alt="profile-pic"
+              />
+            )}
           </div>
         </label>
       </div>

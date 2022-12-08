@@ -23,6 +23,7 @@ function StudentManagementTable({
   setPopUpData,
 }) {
   // const { getRoleLabel } = helper;
+  // const tableData = [{ firstname: "Mevin", lastname: "Monson" }];
 
   const tableSkeletonSection = () => (
     <>
@@ -60,6 +61,9 @@ function StudentManagementTable({
           <div className="table-col profile-col">
             <p>{index + 1}</p>
           </div>
+          <div className="table-col pic-col">
+            <img src="/assets/camera.svg" alt="pro-pic" />
+          </div>
           <div className="table-col email-col">
             <p>{item.firstname}</p>
           </div>
@@ -80,6 +84,7 @@ function StudentManagementTable({
     <div className="table">
       <div className="table-header">
         <p>No</p>
+        <p></p>
         <p>First Name</p>
         <p>Last Name</p>
         <p>Actions</p>

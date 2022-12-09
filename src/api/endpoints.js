@@ -5,6 +5,7 @@ const endpoints = {
   student: "student",
   studentDelete: "student/delete",
   studentUpdate: "student/update",
+  upload: "student/upload",
 };
 
 export default endpoints;

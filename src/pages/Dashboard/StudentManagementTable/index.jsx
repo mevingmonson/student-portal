@@ -61,10 +61,16 @@ function StudentManagementTable({
           <div className="table-col profile-col">
             <p>{index + 1}</p>
           </div>
-          <div className="table-col pic-col">
-            <img src="/assets/camera.svg" alt="pro-pic" />
-          </div>
-          <div className="table-col email-col">
+
+          <div className="table-col profile-col">
+            <div className="profile-pic">
+              <img
+                src={`${
+                  item.image_url ? item.image_url : "/assets/avatar.png"
+                }`}
+                alt="profile-pic"
+              />
+            </div>
             <p>{item.firstname}</p>
           </div>
           <div className="table-col course-col">
@@ -84,7 +90,6 @@ function StudentManagementTable({
     <div className="table">
       <div className="table-header">
         <p>No</p>
-        <p></p>
         <p>First Name</p>
         <p>Last Name</p>
         <p>Actions</p>

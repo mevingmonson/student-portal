@@ -3,7 +3,8 @@ import endpoints from "./endpoints";
 
 const { get, post, delete: deleteAxios, put } = axios;
 
-const { studentsList, student, studentDelete, studentUpdate } = endpoints;
+const { studentsList, student, studentDelete, studentUpdate, upload } =
+  endpoints;
 
 const getStudentsList = async () => {
   try {
@@ -50,11 +51,21 @@ const updateStudent = async (payload) => {
   }
 };
 
+const uploadPhoto = async (id, payload) => {
+  try {
+    const response = await post(`${upload}/${id}`, payload);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 const appServices = {
   getStudentsList,
   getStudent,
   addStudent,
   deleteStudent,
   updateStudent,
+  uploadPhoto,
 };
 export default appServices;

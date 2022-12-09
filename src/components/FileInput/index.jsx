@@ -40,14 +40,6 @@ function FileInput({ imageUrl, onChange }) {
     }
 
     if (imageFile[0].size <= allowedSize) {
-      const reader = new FileReader();
-      reader.readAsDataURL(imageFile[0]);
-
-      // upload itemFileName
-      // debugger;
-      const data = new FormData();
-
-      data.append("photo", imageFile[0]);
       onChange(imageFile[0]);
     } else {
       // show error
@@ -75,7 +67,11 @@ function FileInput({ imageUrl, onChange }) {
             ) : (
               <img
                 className="img-uploaded"
-                src={URL.createObjectURL(imagePath)}
+                src={
+                  typeof imagePath === "string"
+                    ? imagePath
+                    : URL.createObjectURL(imagePath)
+                }
                 alt="profile-pic"
               />
             )}

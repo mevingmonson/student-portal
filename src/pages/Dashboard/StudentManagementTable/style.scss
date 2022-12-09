@@ -1,10 +1,10 @@
 .usermanagment .table-header {
   display: grid;
-  grid-template-columns: 20px 100px 220px 220px 1fr;
+  grid-template-columns: 100px 1fr 1fr 300px;
   gap: 8px;
 
   p {
-    &:nth-child(4) {
+    &:last-child {
       text-align: center;
       padding-right: 40px;
     }
@@ -12,8 +12,7 @@
 }
 
 .usermanagment .table-row {
-  grid-template-columns: 20px 100px 220px 220px 1fr;
-
+  grid-template-columns: 100px 1fr 1fr 300px;
   .blue-col {
     background-color: rgba(3, 122, 189, 0.06);
     color: #037abd;

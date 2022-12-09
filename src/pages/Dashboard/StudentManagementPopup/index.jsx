@@ -20,7 +20,7 @@ function StudentManagementPopup({
     firstname: "",
     // id: "",
     lastname: "",
-    photo: "",
+    image_url: "",
   });
   const [isLoading, setLoading] = useState(false);
 
@@ -38,10 +38,20 @@ function StudentManagementPopup({
     setFormDetails(formDetailsCopy);
   };
 
+  // upload photo api call
+  const uploadPhoto = async (id) => {
+    const formData = new FormData();
+    formData.append("myfile", formDetails.image_url);
+    const res = await appServices.uploadPhoto(id, formData);
+    return res;
+  };
+
   const addStudent = async () => {
     try {
       setLoading(true);
       const response = await appServices.addStudent(formDetails);
+      await uploadPhoto(response.InsertedID);
+
       getStudentList();
       closePopup();
       showAlert("New student enrolled", "success");
@@ -55,6 +65,8 @@ function StudentManagementPopup({
     try {
       setLoading(true);
       const response = await appServices.updateStudent(formDetails);
+      if (popUpData.data.image_url !== formDetails.image_url)
+        await uploadPhoto(formDetails._id);
       getStudentList();
       closePopup();
       showAlert("Updated successfully!", "success");
@@ -111,8 +123,8 @@ function StudentManagementPopup({
                 value={formDetails.lastname}
               />
               <FileInput
-                onChange={onChangeHandler("photo")}
-                imageUrl={formDetails.photo}
+                onChange={onChangeHandler("image_url")}
+                imageUrl={formDetails.image_url}
               />
             </div>
             <div className="user-popup-footer">

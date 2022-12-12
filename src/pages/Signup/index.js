@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 // import FormData from "form-data";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/LockOutlined";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
 // import AuthContext from "../../context";
 // import appServices from "../../api/appServices";
 import styles from "./index.module.scss";
+import SelectBox from "./../../components/SelectBox/index";
+
+const ROLE = ["admin", "user"];
 
 function FormInput({ icon: Icon, label, name, register, ...props }) {
   return (
@@ -23,8 +28,7 @@ function FormInput({ icon: Icon, label, name, register, ...props }) {
           id={name}
           name={name}
           required
-          // ref={register}
-          {...props}
+          {...register(name)}
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label className={styles.formInputIconContainer} htmlFor={name}>
@@ -42,7 +46,7 @@ FormInput.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default function Login({ history }) {
+export default function Signup({ history }) {
   // const {
   //   getAccessToken,
   //   setAccessToken,
@@ -50,7 +54,12 @@ export default function Login({ history }) {
   //   setUserDetails,
   //   setUserDetailsOnDevice,
   // } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [isSigningin, setSigningIn] = useState(false);
   const [isInvalidCred, setInvalidCred] = useState({
     invalid: false,
@@ -80,13 +89,23 @@ export default function Login({ history }) {
           <form
             className={styles.form}
             onSubmit={handleSubmit((data) => {
-              signIn(data);
+              console.log("data--", data);
+              // signIn(data);
             })}
           >
-            <h4 className={styles.formSubtitle}>Welcome!</h4>
+            <h4 className={styles.formSubtitle}>Sign Up!</h4>
             <h2 className={styles.formTitle}>Employee Portal</h2>
-            <p className={styles.formDescription}>Please login to continue.</p>
+            {/* <p className={styles.formDescription}>Please Signup to continue.</p> */}
 
+            <FormInput
+              disabled={isSigningin}
+              icon={AccountCircleOutlinedIcon}
+              label="Name"
+              placeholder="Name"
+              name="name"
+              register={register}
+              type="text"
+            />
             <FormInput
               disabled={isSigningin}
               icon={EmailIcon}
@@ -105,6 +124,14 @@ export default function Login({ history }) {
               register={register}
               type="password"
             />
+            <SelectBox
+              list={ROLE}
+              label="Role"
+              name="role"
+              icon={WorkOutlineOutlinedIcon}
+              register={register}
+            />
+
             {isInvalidCred.invalid && (
               <div className={styles.invalidCredentials}>
                 {isInvalidCred.message}
@@ -115,12 +142,12 @@ export default function Login({ history }) {
               disabled={isSigningin}
               className={styles.formSubmitButton}
               type="submit"
-              value={isSigningin ? "Signing in..." : "Sign In"}
+              value={isSigningin ? "Signing up..." : "Sign Up"}
             />
 
             <div className={styles.resetLink}>
-              <div>Don't have an account?</div>
-              <Link to="/signup">Sign&nbsp;up&nbsp;here →</Link>
+              <div>Already have an account?</div>
+              <Link to="/login">Login&nbsp;here →</Link>
             </div>
           </form>
         </div>

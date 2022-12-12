@@ -5,6 +5,7 @@ import Login from "./Login";
 import Student from "./Student";
 import Dashboard from "./Dashboard";
 import AzureTest from "./Test/index";
+import Signup from "./Signup/index";
 
 const RouteList = () => {
   return (
@@ -13,6 +14,7 @@ const RouteList = () => {
         <Routes>
           {/* <Switch> */}
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="test" element={<AzureTest />} />
           {/* </Switch> */}

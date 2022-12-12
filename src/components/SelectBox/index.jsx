@@ -1,41 +1,39 @@
-// import React from "react";
-// import { Select } from "antd";
-// import PropTypes from "prop-types";
+import React from "react";
 
-// function SelectBox({ listViewOption, onChange, value }) {
-//   const { Option } = Select;
+import styles from "./index.module.scss";
 
-//   const onChangeHandle = (newValue) => {
-//     onChange(newValue);
-//   };
+function SelectBox({
+  icon: Icon,
+  label,
+  name,
+  register,
+  onChange,
+  list,
+  ...props
+}) {
+  return (
+    <div className={styles.formInputContainer}>
+      <label className={styles.formInputLabel} htmlFor={name}>
+        {label}
+      </label>
+      <div className={styles.formInputContent}>
+        <select
+          className={styles.formInputField}
+          id={name}
+          name={name}
+          required
+          {...register(name)}
+        >
+          {list.map((el) => (
+            <option value={el}>{el}</option>
+          ))}
+        </select>
+        <label className={styles.formInputIconContainer} htmlFor={name}>
+          <Icon className={styles.formInputIcon} />
+        </label>
+      </div>
+    </div>
+  );
+}
 
-//   return (
-//     <div id="select-box-wrapper">
-//       <Select
-//         id="select-box-id"
-//         name="selectBox"
-//         onChange={onChangeHandle}
-//         value={value}
-//         style={{ width: 150 }}
-//         getPopupContainer={() => document.getElementById("select-box-wrapper")}
-//       >
-//         {listViewOption.map((el) => (
-//           <Option value={el.value}>{el.label}</Option>
-//         ))}
-//       </Select>
-//     </div>
-//   );
-// }
-
-// export default SelectBox;
-
-// SelectBox.defaultProps = {
-//   onChange: () => {},
-//   value: "",
-// };
-
-// SelectBox.propTypes = {
-//   listViewOption: PropTypes.instanceOf(Array).isRequired,
-//   onChange: PropTypes.func,
-//   value: PropTypes.string,
-// };
+export default SelectBox;

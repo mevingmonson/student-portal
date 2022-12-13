@@ -8,7 +8,7 @@ import {
 export default function BasicEditingGrid() {
   return (
     <div className="student-portal">
-      <h2>Student Portal</h2>
+      <h2>Employee Portal</h2>
       <div style={{ height: 300, width: "100%" }}>
         <DataGrid
           rows={rows}

@@ -84,7 +84,7 @@ export default function Login({ history }) {
             })}
           >
             <h4 className={styles.formSubtitle}>Welcome!</h4>
-            <h2 className={styles.formTitle}>Student Portal</h2>
+            <h2 className={styles.formTitle}>Employee Portal</h2>
             <p className={styles.formDescription}>Please login to continue.</p>
 
             <FormInput

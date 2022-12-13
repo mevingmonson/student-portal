@@ -1,12 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "./index.module.scss";
 // import { withRouter } from "react-router";
 
-
- const AdminHeader= ({ history }) => {
-
-
+const AdminHeader = ({ history }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
   let isActive = false;
@@ -14,9 +11,7 @@ import styles from "./index.module.scss";
     isActive = true;
   }
 
-  const logOutHandler = () => {
-    
-  };
+  const logOutHandler = () => {};
 
   const gotoDashBoard = () => {
     history.push("/dashboard");
@@ -37,7 +32,7 @@ import styles from "./index.module.scss";
           /> */}
           <p></p>
           <div className={styles.profileContainer}>
-            <div className={styles.profileName}>Mevin G Monson</div>
+            <div className={styles.profileName}>John Mike</div>
             <div
               role="button"
               tabIndex="0"
@@ -98,9 +93,9 @@ import styles from "./index.module.scss";
               className={`${styles.link} ${isActive ? styles.activeLink : ""}`}
               to="/dashboard"
             >
-                   Student Portal
+              Employee Portal
             </NavLink>
-           
+
             {/* <NavLink
               activeClassName={styles.activeLink}
               className={styles.link}
@@ -108,7 +103,6 @@ import styles from "./index.module.scss";
             >          
         
             </NavLink> */}
-           
           </div>
         </div>
       </div>
@@ -116,4 +110,4 @@ import styles from "./index.module.scss";
   );
 };
 
-export default AdminHeader
+export default AdminHeader;

@@ -8,6 +8,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 // import userServices from "../../../api/userServices";
 import "./style.scss";
 import { cloneDeep, findIndex } from "lodash";
+import { getImageUrl } from "../../../utils/helper";
 // import TableSkeleton from "../../../components/Skeletons/TableSkeleton";
 // import showAlert from "../../../utils/showAlert";
 // import helper from "../../../utils/helper";
@@ -66,7 +67,9 @@ function StudentManagementTable({
             <div className="profile-pic">
               <img
                 src={`${
-                  item.image_url ? item.image_url : "/assets/avatar.png"
+                  item.image_url
+                    ? getImageUrl(item.image_url)
+                    : "/assets/avatar.png"
                 }`}
                 alt="profile-pic"
               />

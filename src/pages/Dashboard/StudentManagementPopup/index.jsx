@@ -7,6 +7,7 @@ import { cloneDeep, findIndex } from "lodash";
 import showAlert from "../../../utils/showAlert";
 import appServices from "../../../api/appServices";
 import FileInput from "../../../components/FileInput";
+import { getImageUrl } from "../../../utils/helper";
 
 function StudentManagementPopup({
   setLoader,
@@ -28,6 +29,7 @@ function StudentManagementPopup({
     if (popUpData.isEditMode) {
       let formDetailsCopy = cloneDeep(formDetails);
       formDetailsCopy = popUpData.data;
+      formDetailsCopy.image_url = getImageUrl(popUpData.data.image_url);
       setFormDetails(formDetailsCopy);
     }
   }, []);
@@ -54,7 +56,7 @@ function StudentManagementPopup({
 
       getStudentList();
       closePopup();
-      showAlert("New student enrolled", "success");
+      showAlert("New employee enrolled", "success");
     } catch (error) {
       setLoading(false);
       return error;
@@ -91,11 +93,11 @@ function StudentManagementPopup({
       <div className="popup-overlay" />
       <div className="popup-wrapper">
         <div className="popup-header">
-          <h1>{popUpData.isEditMode ? "Edit Student" : "New Student"}</h1>
+          <h1>{popUpData.isEditMode ? "Edit Employee" : "New Employee"}</h1>
           <p>
             {popUpData.isEditMode
-              ? "Use this page to update student information."
-              : "Use this page to register a new student."}
+              ? "Use this page to update employee information."
+              : "Use this page to register a new employee."}
           </p>
         </div>
         <form onSubmit={submitHandler}>
@@ -135,7 +137,7 @@ function StudentManagementPopup({
                 {isLoading
                   ? "Saving..."
                   : (popUpData.isEditMode && "Save Changes") ||
-                    "Enrol New Student"}
+                    "Enrol New Employee"}
               </button>
             </div>
           </div>

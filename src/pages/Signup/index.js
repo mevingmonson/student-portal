@@ -2,8 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import PropTypes from "prop-types";
-// import FormData from "form-data";
+import { useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/LockOutlined";
@@ -13,6 +12,7 @@ import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 // import appServices from "../../api/appServices";
 import styles from "./index.module.scss";
 import SelectBox from "./../../components/SelectBox/index";
+import appServices from "./../../api/appServices";
 
 const ROLE = ["admin", "user"];
 
@@ -29,6 +29,7 @@ function FormInput({ icon: Icon, label, name, register, ...props }) {
           name={name}
           required
           {...register(name)}
+          {...props}
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label className={styles.formInputIconContainer} htmlFor={name}>
@@ -38,13 +39,6 @@ function FormInput({ icon: Icon, label, name, register, ...props }) {
     </div>
   );
 }
-
-FormInput.propTypes = {
-  icon: PropTypes.node.isRequired,
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
-};
 
 export default function Signup({ history }) {
   // const {
@@ -60,23 +54,23 @@ export default function Signup({ history }) {
     watch,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
   const [isSigningin, setSigningIn] = useState(false);
   const [isInvalidCred, setInvalidCred] = useState({
     invalid: false,
     message: "",
   });
 
-  const signIn = async ({ username, password }) => {
-    setInvalidCred({
-      invalid: false,
-      message: "",
-    });
-    setSigningIn(true);
+  const signup = async (data) => {
+    // setInvalidCred({
+    //   invalid: false,
+    //   message: "",
+    // });
+    // setSigningIn(true);
 
-    const formdata = new FormData();
-
-    formdata.append("username", username);
-    formdata.append("password", password);
+    const res = await appServices.signupUser(data);
+    console.log("res---", res);
   };
 
   return (
@@ -90,7 +84,7 @@ export default function Signup({ history }) {
             className={styles.form}
             onSubmit={handleSubmit((data) => {
               console.log("data--", data);
-              // signIn(data);
+              signup(data);
             })}
           >
             <h4 className={styles.formSubtitle}>Sign Up!</h4>
@@ -111,9 +105,9 @@ export default function Signup({ history }) {
               icon={EmailIcon}
               label="E-Mail"
               placeholder="Email"
-              name="username"
+              name="email"
               register={register}
-              type="text"
+              type="email"
             />
             <FormInput
               disabled={isSigningin}

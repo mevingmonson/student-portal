@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Routes, Switch, Route } from "react-router-dom";
 
-import Login from "./Login";
-import Student from "./Student";
-import Dashboard from "./Dashboard";
-import AzureTest from "./Test/index";
-import Signup from "./Signup/index";
+import PrivateRoute from "./PrivateRoute";
+import Login from "../pages/Login";
+import Student from "../pages/Student";
+import Dashboard from "../pages/Dashboard";
+import AzureTest from "../pages/Test/index";
+import Signup from "../pages/Signup/index";
 
 const RouteList = () => {
   return (
@@ -15,6 +16,7 @@ const RouteList = () => {
           {/* <Switch> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          {/* <PrivateRoute path="/" exact component={Dashboard} /> */}
           <Route path="/" element={<Dashboard />} />
           <Route path="test" element={<AzureTest />} />
           {/* </Switch> */}

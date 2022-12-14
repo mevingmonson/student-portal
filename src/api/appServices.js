@@ -69,7 +69,7 @@ const uploadPhoto = async (id, payload) => {
 
 const loginUser = async (payload) => {
   try {
-    const response = await post(loginUser, payload);
+    const response = await post(login, payload);
     return response.data;
   } catch (error) {
     return error;

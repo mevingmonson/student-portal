@@ -1,5 +1,5 @@
 import axios from "axios";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import showAlert from "./showAlert";
 import endpoints from "../api/endpoints";
 
@@ -8,9 +8,19 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   (config) => {
-    // const newConfig = config;
-    // newConfig.headers["Access-Token"] = Cookies.get("AccessToken") || "";
-    return config;
+    const newConfig = config;
+    newConfig.headers["Access-Control-Allow-Origin"] = "*";
+    newConfig.headers["Access-Control-Allow-Methods"] =
+      "GET, POST, PATCH, PUT, DELETE, OPTIONS";
+    newConfig.headers["Access-Control-Allow-Headers"] =
+      "Origin, Content-Type, X-Auth-Token";
+    // newConfig.headers["Token"] = Cookies.get("Token") || "";
+
+    let token = Cookies.get("Token");
+    console.log("token---", token);
+    if (token) newConfig.headers["Token"] = token;
+
+    return newConfig;
   },
   (error) => Promise.reject(error)
 );

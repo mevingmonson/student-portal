@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 import AuthContext from "./../context/AuthContext";
 
 const setAccessToken = (AccessToken) => {
-  Cookies.set("AccessToken", AccessToken, { expires: 7 });
+  Cookies.set("Token", AccessToken, { expires: 7 });
 };
 
 const deleteAccessToken = () => {
-  Cookies.set("AccessToken", "--", { expires: -1 });
+  Cookies.set("Token", "--", { expires: -1 });
 };
 
-const getAccessToken = () => Cookies.get("AccessToken");
+const getAccessToken = () => Cookies.get("Token");
 
 export default function AuthProvider({ children }) {
   const [isSignedIn, setSignIn] = useState(false);

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,32 +12,9 @@ import styles from "./index.module.scss";
 import SelectBox from "./../../components/SelectBox/index";
 import appServices from "./../../api/appServices";
 import showAlert from "./../../utils/showAlert";
+import FormInput from "./../../components/FormInput/index";
 
 const ROLE = ["admin", "user"];
-
-function FormInput({ icon: Icon, label, name, register, ...props }) {
-  return (
-    <div className={styles.formInputContainer}>
-      <label className={styles.formInputLabel} htmlFor={name}>
-        {label}
-      </label>
-      <div className={styles.formInputContent}>
-        <input
-          className={styles.formInputField}
-          id={name}
-          name={name}
-          required
-          {...register(name)}
-          {...props}
-        />
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={styles.formInputIconContainer} htmlFor={name}>
-          <Icon className={styles.formInputIcon} />
-        </label>
-      </div>
-    </div>
-  );
-}
 
 export default function Signup({ history }) {
   const { register, handleSubmit } = useForm();
@@ -51,7 +28,14 @@ export default function Signup({ history }) {
 
   // sign up api call
   const signup = async (data) => {
+    // clearing the state
+    setInvalidCred({
+      invalid: false,
+      message: "",
+    });
     setSigningIn(true);
+
+    // api call
     try {
       const res = await appServices.signupUser(data);
       setSigningIn(false);
@@ -148,7 +132,3 @@ export default function Signup({ history }) {
     </div>
   );
 }
-
-// Login.propTypes = {
-//   history: PropTypes.instanceOf(Object).isRequired,
-// };

@@ -2,51 +2,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import PropTypes from "prop-types";
+import FormInput from "./../../components/FormInput/index";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/LockOutlined";
 
 import styles from "./index.module.scss";
-
-function FormInput({ icon: Icon, label, name, register, ...props }) {
-  return (
-    <div className={styles.formInputContainer}>
-      <label className={styles.formInputLabel} htmlFor={name}>
-        {label}
-      </label>
-      <div className={styles.formInputContent}>
-        <input
-          className={styles.formInputField}
-          id={name}
-          name={name}
-          required
-          // ref={register}
-          {...props}
-        />
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className={styles.formInputIconContainer} htmlFor={name}>
-          <Icon className={styles.formInputIcon} />
-        </label>
-      </div>
-    </div>
-  );
-}
-
-FormInput.propTypes = {
-  icon: PropTypes.node.isRequired,
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
-};
+import AuthContext from "./../../context/AuthContext";
+import appServices from "./../../api/appServices";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ history }) {
-  // const {
-  //   getAccessToken,
-  //   setAccessToken,
-  //   setSignIn,
-  //   setUserDetails,
-  //   setUserDetailsOnDevice,
-  // } = useContext(AuthContext);
+  const { setAccessToken, setSignIn, setUserDetails } = useContext(AuthContext);
+
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [isSigningin, setSigningIn] = useState(false);
   const [isInvalidCred, setInvalidCred] = useState({
@@ -54,17 +22,31 @@ export default function Login({ history }) {
     message: "",
   });
 
-  const signIn = async ({ username, password }) => {
+  const signIn = async (data) => {
     setInvalidCred({
       invalid: false,
       message: "",
     });
     setSigningIn(true);
-
-    const formdata = new FormData();
-
-    formdata.append("username", username);
-    formdata.append("password", password);
+    try {
+      const res = await appServices.loginUser(data);
+      setSigningIn(false);
+      console.log("res---", res);
+      if (res?.isError) {
+        setInvalidCred({
+          invalid: true,
+          message: res?.message || "something went wrong!",
+        });
+      } else {
+        setAccessToken(res?.token);
+        setSignIn(true);
+        setUserDetails(res);
+        navigate("/");
+      }
+    } catch (err) {
+      console.log("error--", err);
+      setSigningIn(false);
+    }
   };
 
   return (
@@ -89,7 +71,7 @@ export default function Login({ history }) {
               icon={EmailIcon}
               label="E-Mail"
               placeholder="Email"
-              name="username"
+              name="email"
               register={register}
               type="text"
             />

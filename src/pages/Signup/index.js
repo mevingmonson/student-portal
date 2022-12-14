@@ -8,11 +8,10 @@ import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/LockOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
-// import AuthContext from "../../context";
-// import appServices from "../../api/appServices";
 import styles from "./index.module.scss";
 import SelectBox from "./../../components/SelectBox/index";
 import appServices from "./../../api/appServices";
+import showAlert from "./../../utils/showAlert";
 
 const ROLE = ["admin", "user"];
 
@@ -41,19 +40,7 @@ function FormInput({ icon: Icon, label, name, register, ...props }) {
 }
 
 export default function Signup({ history }) {
-  // const {
-  //   getAccessToken,
-  //   setAccessToken,
-  //   setSignIn,
-  //   setUserDetails,
-  //   setUserDetailsOnDevice,
-  // } = useContext(AuthContext);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   const [isSigningin, setSigningIn] = useState(false);
@@ -62,15 +49,27 @@ export default function Signup({ history }) {
     message: "",
   });
 
+  // sign up api call
   const signup = async (data) => {
-    // setInvalidCred({
-    //   invalid: false,
-    //   message: "",
-    // });
-    // setSigningIn(true);
+    setSigningIn(true);
+    try {
+      const res = await appServices.signupUser(data);
+      setSigningIn(false);
+      console.log("res---", res);
 
-    const res = await appServices.signupUser(data);
-    console.log("res---", res);
+      if (res?.isError)
+        setInvalidCred({
+          invalid: true,
+          message: res?.message || "Signup failed!",
+        });
+      else {
+        showAlert("User created successfullt!", "success");
+        navigate("/login");
+      }
+    } catch (err) {
+      setSigningIn(false);
+      console.log("error--", err);
+    }
   };
 
   return (

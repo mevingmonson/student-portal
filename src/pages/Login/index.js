@@ -3,12 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-// import FormData from "form-data";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/LockOutlined";
 
-// import AuthContext from "../../context";
-// import appServices from "../../api/appServices";
 import styles from "./index.module.scss";
 
 function FormInput({ icon: Icon, label, name, register, ...props }) {

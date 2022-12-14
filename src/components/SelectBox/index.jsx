@@ -25,7 +25,9 @@ function SelectBox({
           {...register(name)}
         >
           {list.map((el) => (
-            <option value={el}>{el}</option>
+            <option key={el} value={el}>
+              {el}
+            </option>
           ))}
         </select>
         <label className={styles.formInputIconContainer} htmlFor={name}>

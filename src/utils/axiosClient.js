@@ -9,11 +9,11 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.interceptors.request.use(
   (config) => {
     const newConfig = config;
-    newConfig.headers["Access-Control-Allow-Origin"] = "*";
-    newConfig.headers["Access-Control-Allow-Methods"] =
-      "GET, POST, PATCH, PUT, DELETE, OPTIONS";
-    newConfig.headers["Access-Control-Allow-Headers"] =
-      "Origin, Content-Type, X-Auth-Token";
+    // newConfig.headers["Access-Control-Allow-Origin"] = "*";
+    // newConfig.headers["Access-Control-Allow-Methods"] =
+    //   "GET, POST, PATCH, PUT, DELETE, OPTIONS";
+    // newConfig.headers["Access-Control-Allow-Headers"] =
+    //   "Origin, Content-Type, X-Auth-Token";
     // newConfig.headers["Token"] = Cookies.get("Token") || "";
 
     let token = Cookies.get("Token");

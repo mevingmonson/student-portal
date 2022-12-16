@@ -18,7 +18,7 @@ axios.interceptors.request.use(
 
     let token = Cookies.get("Token");
     console.log("token---", token);
-    if (token) newConfig.headers["Token"] = token;
+    if (token) newConfig.headers["Authorization"] = "Bearer "+ token;
 
     return newConfig;
   },

@@ -12,7 +12,7 @@ import appServices from "./../../api/appServices";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ history }) {
-  const { setAccessToken, setSignIn, setUserDetails } = useContext(AuthContext);
+  const { setAccessToken, setSignIn, setUserDetails, getAccessToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
@@ -49,8 +49,17 @@ export default function Login({ history }) {
     }
   };
 
+  const AccessToken = getAccessToken();
+  useEffect(() => {
+    if (AccessToken) {
+      navigate("/");
+    }
+  }, []);
+ 
   return (
-    <div className={styles.page}>
+    <>
+    { !AccessToken && 
+      <div className={styles.page}>
       <div className={styles.pageContent}>
         <div className={styles.imageContainer}>
           {/* <img className={styles.icon} alt="logo" src="/assets/logo.svg" /> */}
@@ -105,7 +114,9 @@ export default function Login({ history }) {
         </div>
       </div>
     </div>
-  );
+     }
+  </>
+  )
 }
 
 // Login.propTypes = {

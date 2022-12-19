@@ -16,9 +16,10 @@ const RouteList = () => {
           {/* <Switch> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <PrivateRoute path="/" exact component={Dashboard} /> */}
-          <Route path="/" element={<Dashboard />} />
-          <Route path="test" element={<AzureTest />} />
+          <Route element={<PrivateRoute/>}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="test" element={<AzureTest />} />
+          </Route>
           {/* </Switch> */}
         </Routes>
       </BrowserRouter>

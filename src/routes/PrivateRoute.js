@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import { Outlet, Route, useNavigate } from "react-router-dom";
 
 import AuthContext from "./../context/AuthContext";
 import Spinner from "./../components/Spinner/index";
 
-function PrivateRoute({ history, Component, ...rest }) {
+function PrivateRoute() {
   const navigate = useNavigate();
 
   const { getAccessToken, setAccessToken, setSignIn, isSignedIn } =
@@ -21,13 +21,13 @@ function PrivateRoute({ history, Component, ...rest }) {
     }
   }, [getAccessToken, setAccessToken, setSignIn]);
 
-  const renderFn = () => (isSignedIn ? <Component /> : <Spinner />);
-
   // eslint-disable-next-line react/jsx-props-no-spreading
   return (
-    <React.Fragment>
-      <Route {...rest} element={renderFn()} />;
-    </React.Fragment>
+    <>
+      { isSignedIn && 
+       <Outlet />
+      }
+    </>
   );
 }
 

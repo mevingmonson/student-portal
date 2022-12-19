@@ -22,13 +22,7 @@ function PrivateRoute() {
   }, [getAccessToken, setAccessToken, setSignIn]);
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return (
-    <>
-      { isSignedIn && 
-       <Outlet />
-      }
-    </>
-  );
+  return <>{isSignedIn ? <Outlet /> : <Spinner />}</>;
 }
 
 export default PrivateRoute;

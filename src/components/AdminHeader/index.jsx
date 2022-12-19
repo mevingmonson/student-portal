@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, {useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "./index.module.scss";
+import AuthContext from "./../../context/AuthContext";
 // import { withRouter } from "react-router";
 
 const AdminHeader = ({ history }) => {
+  const { deleteAccessToken } = useContext(AuthContext);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
   let isActive = false;
@@ -11,7 +13,10 @@ const AdminHeader = ({ history }) => {
     isActive = true;
   }
 
-  const logOutHandler = () => {};
+  const logOutHandler = () => {
+    deleteAccessToken();
+    window.location.reload();
+  };
 
   const gotoDashBoard = () => {
     history.push("/dashboard");
